@@ -3,13 +3,13 @@ import loadTRR
 import struct, sys, os
 import numpy as np
 
-aaa = ['CA','C','N','O']
+atomname = ['CA','C','N','O']
 num_selatom =[]
-bbb = []
+coord = []
 f_in_pdb = open("npt.gro")
 for a in f_in_pdb:
   if len(a.split()) > 8:
-    if a.split()[1] in aaa:
+    if a.split()[1] in atomname:
       #print a.split()[1],a.split()[2]  
       num_selatom.append(int(a.split()[2]) - 1)
 
@@ -25,28 +25,29 @@ for fl in os.listdir(os.getcwd()):
   imada_number = 0
   dist = []
   for frame in loadTRR.loadTRR(f_in):
-    bbb = []
+    coord = []
     #print frame["step"]
     for i in num_selatom:
       #print frame["x"][i],frame["x"][i+1],frame["x"][i+2]
-      bbb.append([frame["x"][i],frame["x"][i+1],frame["x"][i+2]])
-    ccc = np.array(bbb)
-    len_ccc = len(ccc)
-    #print len_ccc
-    #print (len_ccc * (len_ccc - 1 )) /2
-    for m in range(len_ccc):
-      for n in range(len_ccc):
+      coord.append([frame["x"][i],frame["x"][i+1],frame["x"][i+2]])
+    coord_array = np.array(coord)
+    len_coord_array = len(coord_array)
+    #print len_coord_array
+    #print (len_coord_array * (len_coord_array - 1 )) /2
+    for m in range(len_coord_array):
+      for n in range(len_coord_array):
         if m < n:
-          #print ccc[m],ccc[n]
-          #print np.linalg.norm( ccc[m] - ccc[n] )
-          print >> fp, np.linalg.norm( ccc[m] - ccc[n] ),",",
-          dist.append( np.linalg.norm( ccc[m] - ccc[n] ) )
+          #print coord_array[m],coord_array[n]
+          #print np.linalg.norm( coord_array[m] - coord_array[n] )
+          print >> fp, np.linalg.norm( coord_array[m] - coord_array[n] ),",",
+          dist.append( np.linalg.norm( coord_array[m] - coord_array[n] ) )
     #print len(dist)
     print >> fp, ""
     imada_number += 1
     
 
   fp.close()
-#print ccc 
+print frame["box"]
+#print coord_array 
   #print "total frame", imada_number
 

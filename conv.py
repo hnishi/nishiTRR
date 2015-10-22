@@ -73,6 +73,7 @@ for fl in os.listdir(os.getcwd()):
 
   for frame in loadTRR(f_in):
     print frame["step"]
+    #print frame["box"]
     fp.write(struct.pack("i", frame["step"]))
     frame["box"].flatten().astype(np.float32).tofile(fp)
     frame["x"].flatten().astype(np.float32).tofile(fp)
