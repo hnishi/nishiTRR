@@ -15,12 +15,12 @@ def loadTRR(fl):
   fp = open(fl)
   
   while True:
-    chunk = fp.read(12)
+    chunk = fp.read(12)  #read 12 bytes
     if chunk == "": break
   
-    frame = {}
+    frame = {}  #initialization of a dictionary
     
-    frame["magicnum"], frame["i1"], version_sz = struct.unpack(">iiI", chunk)
+    frame["magicnum"], frame["i1"], version_sz = struct.unpack(">iiI", chunk)  #> big endian, i: int, I: unsigned int
     
     frame["version"] = "".join(struct.unpack(">" + "c"*version_sz, fp.read(version_sz)))
     frame["ir_size"], frame["e_size"], frame["box_size"], frame["vir_size"], frame["pres_size"], frame["top_size"], frame["sym_size"], frame["x_size"], frame["v_size"], frame["f_size"], frame["natoms"], frame["step"], frame["nre"] = struct.unpack(">iiiiiiiiiiiii", fp.read(13*4))
