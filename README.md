@@ -15,6 +15,7 @@ hoge.gcod
 
 #trr バイナリファイル書式 (unit: byte)   
 
+***********   
 4 int: magic num   
 4 int: i1   
 4 unsigned int: version_sz   
@@ -32,8 +33,6 @@ vesion_sz char*version_sz: version
 4 int: natoms (number of atoms)   
 4 int: step      
 4 int: nre       
-REAL_byte=x_size/atoms/3   
-REAL=float(REAL_byte=4) or double(REAL_byte=8)   
 REAL_byte REAL: time   
 REAL_byte REAL: lam    
 REAL_byte REAL: time   
@@ -44,5 +43,7 @@ x_size REAL: x
 v_size REAL: v  
 f_size REAL: f  
 
-
+********** NOTICE     
+REAL_byte=x_size/atoms/3   
+REAL=float(REAL_byte=4) or double(REAL_byte=8)   
 we dont know the total num of steps
